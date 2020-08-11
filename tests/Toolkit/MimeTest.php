@@ -2,6 +2,8 @@
 
 namespace Kirby\Toolkit;
 
+use Kirby\Cms\App;
+
 class MimeTest extends TestCase
 {
     const FIXTURES = __DIR__ . '/fixtures/mime';
@@ -23,6 +25,22 @@ class MimeTest extends TestCase
     {
         $mime = Mime::fromExtension('jpg');
         $this->assertEquals('image/jpeg', $mime);
+    }
+
+    public function testExtendTypes()
+    {
+        new App([
+            'options' => [
+                'mime' => [
+                    'types' => [
+                        'heic' => $mime = ['image/heic, image/heif']
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->assertTrue(array_key_exists('heic', Mime::types()));
+        $this->assertSame($mime, Mime::types()['heic']);
     }
 
     public function testFromMimeContentType()
@@ -93,6 +111,6 @@ class MimeTest extends TestCase
 
     public function testTypes()
     {
-        $this->assertEquals(Mime::$types, Mime::types());
+        $this->assertEquals(Mime::types(), Mime::types());
     }
 }
