@@ -45,12 +45,7 @@ return [
             return $page->isSortable();
         },
         'next' => function (Page $page) {
-            return $page
-                ->nextAll()
-                ->filterBy('intendedTemplate', $page->intendedTemplate())
-                ->filterBy('status', $page->status())
-                ->filterBy('isReadable', true)
-                ->first();
+            return $page->nextCycle();
         },
         'num' => function (Page $page) {
             return $page->num();
@@ -71,12 +66,7 @@ return [
             return $page->parents()->flip();
         },
         'prev' => function (Page $page) {
-            return $page
-                ->prevAll()
-                ->filterBy('intendedTemplate', $page->intendedTemplate())
-                ->filterBy('status', $page->status())
-                ->filterBy('isReadable', true)
-                ->last();
+            return $page->prevCycle();
         },
         'previewUrl' => function (Page $page) {
             return $page->previewUrl();
