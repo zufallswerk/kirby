@@ -117,7 +117,6 @@ class F
      * @param string $file The path for the file
      * @param mixed $content Either a string or an array. Arrays will be converted to JSON.
      * @return bool
-     * @throws Exception
      */
     public static function append(string $file, $content): bool
     {
@@ -142,7 +141,6 @@ class F
      * @param string $target
      * @param bool $force
      * @return bool
-     * @throws Exception
      */
     public static function copy(string $source, string $target, bool $force = false): bool
     {
@@ -346,7 +344,7 @@ class F
      * @param string $link
      * @param string $method
      * @return bool
-     * @throws Exception
+     * @throws \Exception
      */
     public static function link(string $source, string $link, string $method = 'link'): bool
     {
@@ -600,7 +598,7 @@ class F
      * @param string $file
      * @param string|null $in
      * @return string|null
-     * @throws Exception
+     * @throws \Exception
      */
     public static function realpath(string $file, string $in = null)
     {
@@ -795,7 +793,7 @@ class F
      * @param string $file
      * @param string $to
      * @return bool
-     * @throws Exception
+     * @throws \Exception
      */
     public static function unzip(string $file, string $to): bool
     {
@@ -836,7 +834,7 @@ class F
      * @param mixed $content Either a string, an object or an array. Arrays and objects will be serialized.
      * @param bool $append true: append the content to an existing file if available. false: overwrite.
      * @return bool
-     * @throws Exception
+     * @throws \Exception
      */
     public static function write(string $file, $content, bool $append = false): bool
     {
