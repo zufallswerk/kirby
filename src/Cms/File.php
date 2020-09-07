@@ -237,28 +237,25 @@ class File extends ModelWithContent
      */
     public function dragText(string $type = null, bool $absolute = false): string
     {
-        $type = $type ?? 'auto';
+        $type = $this->dragTextType($type);
+        $url  = $absolute ? $this->id() : $this->filename();
 
-        if ($type === 'auto') {
-            $type = option('panel.kirbytext', true) ? 'kirbytext' : 'markdown';
+        if ($dragTextFromCallback = $this->dragTextFromCallback($type, $url)) {
+            return $dragTextFromCallback;
         }
 
-        $url = $absolute ? $this->id() : $this->filename();
-
-        switch ($type) {
-            case 'markdown':
-                if ($this->type() === 'image') {
-                    return '![' . $this->alt() . '](' . $url . ')';
-                } else {
-                    return '[' . $this->filename() . '](' . $url . ')';
-                }
-                // no break
-            default:
-                if ($this->type() === 'image') {
-                    return '(image: ' . $url . ')';
-                } else {
-                    return '(file: ' . $url . ')';
-                }
+        if ($type === 'markdown') {
+            if ($this->type() === 'image') {
+                return '![' . $this->alt() . '](' . $url . ')';
+            } else {
+                return '[' . $this->filename() . '](' . $url . ')';
+            }
+        } else {
+            if ($this->type() === 'image') {
+                return '(image: ' . $url . ')';
+            } else {
+                return '(file: ' . $url . ')';
+            }
         }
     }
 
