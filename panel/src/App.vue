@@ -234,7 +234,6 @@ b {
   transform: translate3d(0, 0, 0);
 }
 .k-panel[data-dialog] .k-panel-view {
-  overflow: hidden;
   transform: none;
 }
 .k-panel[data-topbar] .k-panel-view {
